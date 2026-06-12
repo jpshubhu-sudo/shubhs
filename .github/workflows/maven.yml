@@ -25,4 +25,4 @@ jobs:
 
       # 4. Package or deploy (example: Docker build)
       - name: Build Docker Image
-        run: docker build -t employeeApp:latest .
+        run: docker build -t employeeapp:latest .
