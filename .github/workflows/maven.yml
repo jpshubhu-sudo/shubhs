@@ -7,31 +7,23 @@ on:
     branches: [ main ]
 
 jobs:
-  # Stage 1: Build
-  build:
+  # Stage 1: Build + Test
+  build_and_test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Maven Clean Install
+      - name: Maven Clean Install (skip tests)
         run: mvn clean install -DskipTests
 
-  # Stage 2: Test
-#  test:
-#    runs-on: ubuntu-latest
-#    needs: build
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
 #      - name: Run Unit Tests
 #        run: mvn test
 
-  # Stage 3: Package/Deploy
+  # Stage 2: Package/Deploy
   package:
     runs-on: ubuntu-latest
-    needs: test
+    needs: build_and_test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
