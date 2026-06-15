@@ -11,31 +11,23 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Maven Clean Install (skip tests)
-        run: |
-          mvn clean install -DskipTests && echo "✅ Build successful" || echo "❌ Build failed"
+      - name: Build Project
+        run: mvn clean install -DskipTests && echo "✅ Build successful"
 
       - name: Run Unit Tests
-        run: |
-          mvn test && echo "✅ Tests passed" || echo "❌ Tests failed"
+        run: mvn test && echo "✅ Tests passed"
 
   # Stage 2: Vulnerability Scan
   dependency_scan:
     runs-on: ubuntu-latest
     needs: build_and_test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Run OWASP Dependency Check
-        run: |
-          mvn org.owasp:dependency-check-maven:check \
-            -Dformat=HTML \
-            -DoutputDirectory=dependency-check-report \
-            && echo "✅ Vulnerability scan completed" || echo "❌ Vulnerabilities found"
+      - name: Run Dependency Check
+        run: mvn org.owasp:dependency-check-maven:check -Dscan=./pom.xml -Dformat=HTML -DoutputDirectory=dependency-check-report
 
       - name: Upload Vulnerability Report
         uses: actions/upload-artifact@v4
@@ -48,9 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: dependency_scan
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Build Docker Image
-        run: |
-          docker build -t employeeapp:latest . && echo "✅ Docker image built" || echo "❌ Docker build failed"
+        run: docker build -t employeeapp:latest . && echo "✅ Docker image built"
