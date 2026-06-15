@@ -1,6 +1,12 @@
 package com.newproject.demo.practise;
 
 
+import org.apache.kafka.shaded.com.google.protobuf.Timestamp;
+
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -8,6 +14,22 @@ import java.util.stream.Collectors;
 
 public class RestClass {
     public static void main(String[] args) {
+        
+        int[] list2 = {1, 2, 3};
+        System.out.println(LocalDateTime.now());
+        Arrays.sort(list2);
+        System.out.println(LocalDateTime.now());
+        System.out.println(list2[list2.length - 1]);
+/*        long startTime = System.nanoTime();
+        int largest = list2[0];
+        for (int i : list2) {
+            if (i > largest) {
+                largest = i;
+            }
+        }
+        long endTime = System.nanoTime();
+        System.out.println((endTime - startTime) / 1000);
+        System.out.println(largest);*/
 
 /*        List<Integer> list = Arrays.asList(1, 2, 3);
         int sum = list.stream().mapToInt(Integer::intValue).sum();
