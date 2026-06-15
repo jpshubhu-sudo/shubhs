@@ -22,22 +22,31 @@ jobs:
         run: |
           mvn test && echo "✅ Tests passed" || echo "❌ Tests failed"
 
-  # Stage 2: Checkstyle
-  checkstyle:
+  # Stage 2: Vulnerability Scan
+  dependency_scan:
     runs-on: ubuntu-latest
     needs: build_and_test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Run Checkstyle
+      - name: Run OWASP Dependency Check
         run: |
-          mvn checkstyle:check && echo "✅ Checkstyle passed" || echo "❌ Checkstyle issues found"
+          mvn org.owasp:dependency-check-maven:check \
+            -Dformat=HTML \
+            -DoutputDirectory=dependency-check-report \
+            && echo "✅ Vulnerability scan completed" || echo "❌ Vulnerabilities found"
+
+      - name: Upload Vulnerability Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-check-report
+          path: dependency-check-report/dependency-check-report.html
 
   # Stage 3: Package/Deploy
   package:
     runs-on: ubuntu-latest
-    needs: checkstyle
+    needs: dependency_scan
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
