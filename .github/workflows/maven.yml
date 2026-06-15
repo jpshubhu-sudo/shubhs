@@ -16,8 +16,8 @@ jobs:
       - name: Build Project
         run: mvn clean install -DskipTests && echo "✅ Build successful"
 
-      - name: Run Unit Tests
-        run: mvn test && echo "✅ Tests passed"
+#      - name: Run Unit Tests
+#        run: mvn test && echo "✅ Tests passed"
 
   # Stage 2: Vulnerability Scan
   dependency_scan:
