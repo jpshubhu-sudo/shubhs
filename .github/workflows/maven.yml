@@ -28,4 +28,4 @@ jobs:
 
       - name: Build Docker Image
 #        run: docker build -t employeeapp:latest . && echo "✅ Docker image built"
-        run: docker build dockerfile && echo "✅ Docker image built"
+        run: docker build Dockerfile && echo "✅ Docker image built"
