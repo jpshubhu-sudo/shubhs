@@ -18,7 +18,7 @@ public class KafkaProducer {
     public void sendMessage(KafkaEmployee employee) {
         log.info("Kafka producer send employee class : {}", employee);
         Message<KafkaEmployee> message = MessageBuilder.withPayload(employee)
-                .setHeader(KafkaHeaders.TOPIC, "employee_json").build();
+                .setHeader(KafkaHeaders.TOPIC, "employee").build();
         kafkaTemplate.send(message);
         log.info("Kafka producer send message : {}", message);
     }

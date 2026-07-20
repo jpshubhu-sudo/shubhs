@@ -19,13 +19,8 @@ import java.util.Map;
 public class KafkaConsumerConfig {
 
     @Bean
-    public NewTopic  newTopic() {
+    public NewTopic newJsonTopic() {
         return TopicBuilder.name("employee").build();
-    }
-
-    @Bean
-    public NewTopic  newJsonTopic() {
-        return TopicBuilder.name("employee_json").build();
     }
 
     @Bean

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler extends RuntimeException{
+public class GlobalExceptionHandler extends RuntimeException {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Error> handleHttpServerErrorException(HttpRequestMethodNotSupportedException e) {
